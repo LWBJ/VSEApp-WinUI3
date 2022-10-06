@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="VSEAppV2.Views.VSEValueCreateMultipleForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VSEAppV2.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Unloaded="UserControl_Unloaded">
+
+    <ContentDialog x:Name="createMultipleDialog"
+                   Title="Create Multiple Values"
+                   CloseButtonText="Close"
+                   Loaded="createMultipleDialog_Loaded">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <InfoBar Title="Notice"
+                         Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                         IsOpen="{x:Bind ViewModel.IsStatusMessageOpen, Mode=TwoWay}"/>
+                <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1">
+                <StackPanel>
+                    <TextBox Text="{x:Bind ViewModel.Field1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Header="Value 1"/>
+                    <TextBox Text="{x:Bind ViewModel.Field2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Header="Value 2"/>
+                    <TextBox Text="{x:Bind ViewModel.Field3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Header="Value 3"/>
+                    <TextBox Text="{x:Bind ViewModel.Field4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Header="Value 4"/>
+                    <TextBox Text="{x:Bind ViewModel.Field5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Header="Value 5"/>
+                    <TextBox Text="{x:Bind ViewModel.Field6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Header="Value 6"/>
+                </StackPanel>
+            </ScrollViewer>
+
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="2"
+                        Margin="0,20,0,0">
+                <Button Command="{x:Bind ViewModel.ClearFormCommand}"
+                        Margin="0,0,20,0">Clear Form</Button>
+                <Button IsEnabled="{x:Bind ViewModel.IsLoading.Equals(x:False), Mode=OneWay}"
+                        Command="{x:Bind ViewModel.CreateMultipleValuesCommand}">Create Multiple Values</Button>
+            </StackPanel>
+        </Grid>
+    </ContentDialog>
+</UserControl>

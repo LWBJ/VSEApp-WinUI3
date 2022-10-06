@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="VSEAppV2.Views.InitialLoadingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VSEAppV2.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <RelativePanel>
+        <TextBlock x:Name="Title"
+                   FontWeight="Bold"
+                   FontSize="32"
+                   RelativePanel.AlignHorizontalCenterWithPanel="True"
+                   RelativePanel.Above="LoadingIndicator">VSE App</TextBlock>
+        <ProgressRing x:Name="LoadingIndicator"
+                      IsActive="True"
+                      RelativePanel.AlignVerticalCenterWithPanel="True"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+
+    </RelativePanel>
+</Page>

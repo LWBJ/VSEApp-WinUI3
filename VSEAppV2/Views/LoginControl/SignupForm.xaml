@@ -1,0 +1,39 @@
+﻿<UserControl
+    x:Class="VSEAppV2.Views.SignupForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VSEAppV2.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Unloaded="UserControl_Unloaded">
+
+    <StackPanel Margin="10,10,40,10"
+                Padding="15"
+                BorderThickness="2"
+                BorderBrush="#663399"
+                CornerRadius="5">
+        <TextBlock Text="Signup"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="24"/>
+        <InfoBar Title="Notice"
+                 Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                 IsOpen="{x:Bind ViewModel.IsStatusMessageOpen, Mode=TwoWay}"/>
+        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+
+        <TextBox Header="Username"
+                 Text="{x:Bind ViewModel.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <PasswordBox Header="Password"
+                     Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <PasswordBox Header="Confirm Password"
+                     Password="{x:Bind ViewModel.Password2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Foreground="Red"
+                   Text="{x:Bind ViewModel.ErrorMessageString, Mode=OneWay}"/>
+        <Button IsEnabled="{x:Bind ViewModel.IsValid, Mode=OneWay}"
+                Command="{x:Bind ViewModel.SignupCommand}">Submit</Button>
+    </StackPanel>
+</UserControl>

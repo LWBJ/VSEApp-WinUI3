@@ -1,0 +1,116 @@
+﻿<Page
+    x:Class="VSEAppV2.Views.VSEExperiencesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VSEAppV2.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:VSEAppV2.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Unloaded="Page_Unloaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="expListView"
+                  ItemsSource="{x:Bind ViewModel.VSEExperiences_Filtered, Mode=OneWay}"
+                  SelectedItem="{x:Bind ViewModel.CurrentSelection, Mode=TwoWay}"
+                  BorderBrush="#663399"
+                  BorderThickness="0,0,2,0"
+                  Margin="0,20,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:VSEExperience">
+                    <TextBlock Text="{x:Bind Name}"
+                               FontSize="16"
+                               Margin="20,10"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ContentControl Content="{x:Bind ViewModel.CurrentSelection, Mode=OneWay}"
+                        Grid.Column="1"
+                        Margin="20"
+                        Visibility="{x:Bind ViewModel.ContentControlVisibility, Mode=OneWay}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate x:DataType="models:VSEExperience">
+                    <Grid Padding="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                            FontSize="32"
+                            FontWeight="Bold"
+                            Margin="0,0,0,20"/>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row="1">
+                            <ListView ItemsSource="{x:Bind ValueList, Mode=OneWay}"
+                                      SelectionMode="None"
+                                      Margin="0,0,50,0">
+                                <ListView.Header>
+                                    <TextBlock TextDecorations="Underline"
+                                               Text="Values"
+                                               FontSize="18"/>
+                                </ListView.Header>
+                            </ListView>
+
+                            <ListView ItemsSource="{x:Bind SkillList, Mode=OneWay}"
+                                      SelectionMode="None">
+                                <ListView.Header>
+                                    <TextBlock TextDecorations="Underline"
+                                               Text="Skills"
+                                               FontSize="18"/>
+                                </ListView.Header>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <StackPanel Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <AutoSuggestBox Text="{x:Bind ViewModel.Filter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        PlaceholderText="Filter by name"
+                        VerticalAlignment="Center"
+                        Width="200"
+                        QueryIcon="Find"/>
+            <CommandBar>
+                <AppBarButton Icon="Add"
+                              Label="Add Experience"
+                              CommandParameter="Create"
+                              Command="{x:Bind ViewModel.OpenModalCommand}"/>
+                <AppBarButton Icon="List"
+                              Label="Add Multiple Experiences"
+                              CommandParameter="CreateMultiple"
+                              Command="{x:Bind ViewModel.OpenModalCommand}"/>
+                <AppBarSeparator/>
+                <AppBarButton Icon="Edit"
+                              Label="Edit Selected Experience"
+                              IsEnabled="{x:Bind ViewModel.HasSelection, Mode=OneWay}"
+                              CommandParameter="Update"
+                              Command="{x:Bind ViewModel.OpenModalCommand}"/>
+                <AppBarButton Icon="Delete"
+                              Label="Delete Selected Experience"
+                              IsEnabled="{x:Bind ViewModel.HasSelection, Mode=OneWay}"
+                              CommandParameter="Delete"
+                              Command="{x:Bind ViewModel.OpenModalCommand}"/>
+            </CommandBar>
+        </StackPanel>
+
+        <local:VSEExperienceCreateUpdateForm/>
+        <local:VSEExperienceCreateMultipleForm/>
+        <local:VSEExperienceDeleteForm/>
+    </Grid>
+</Page>

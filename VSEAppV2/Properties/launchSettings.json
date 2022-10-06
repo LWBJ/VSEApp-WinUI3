@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "VSEAppV2 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "VSEAppV2 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
